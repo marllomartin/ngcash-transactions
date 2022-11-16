@@ -29,8 +29,8 @@ services:
       - PORT=3001
       - PG_USER=postgres
       - PG_PASSWORD=123456
-      - PG_DATABASE=medical-database
-      - PG_HOSTNAME=db
+      - PG_DATABASE=ngcash_transactions
+      - HOSTNAME=db
     healthcheck:
       test: [ "CMD", "lsof", "-t", "-i:3001" ]
       timeout: 10s
