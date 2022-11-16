@@ -1,10 +1,6 @@
-require('dotenv').config();
-import app from './app';
+import { App } from './app';
+import 'dotenv/config';
 
-const port = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
-app.get('/', (_, res) => {
-  res.status(200).send({ message: 'Ok'})
-});
-
-app.listen(port, () => console.log('Ouvindo porta', port));
+new App().start(PORT);
