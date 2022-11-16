@@ -33,7 +33,6 @@ User.init({
   }
 
 }, {
-  underscored: true,
   sequelize: db,
   modelName: 'User',
   timestamps: false,
