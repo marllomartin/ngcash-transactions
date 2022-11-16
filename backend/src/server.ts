@@ -1,6 +1,7 @@
+require('dotenv').config();
 import app from './app';
 
-const port = 3000
+const port = process.env.PORT;
 
 app.get('/', (_, res) => {
   res.status(200).send({ message: 'Ok'})
