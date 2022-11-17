@@ -11,7 +11,7 @@ class App {
 
     this.config();
 
-    this.app.get('/', (req, res) => res.json({ message: 'Ok' }));
+    this.app.get('/', (_req, res) => res.json({ message: 'Ok' }));
   }
 
   private config(): void {
