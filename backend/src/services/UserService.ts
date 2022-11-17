@@ -29,7 +29,7 @@ class UserService {
     const verify = await UserModel.findOne({ where: { username } });
     const translated = await translateMd5(password);
 
-    if (!verify || verify.password !== translated) throw new Error('Incorrect email or password');
+    if (!verify || verify.password !== translated) throw new Error('Incorrect username or password');
 
     const secret = String(JWT_SECRET);
     const token = sign({ payload: username }, secret, { expiresIn: '24h' });
