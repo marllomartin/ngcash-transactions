@@ -30,7 +30,8 @@ services:
       - PG_USER=postgres
       - PG_PASSWORD=123456
       - PG_DATABASE=ngcash_transactions
-      - HOSTNAME=db
+      - HOSTNAME=database
+      - JWT_SECRET=secret
     healthcheck:
       test: [ "CMD", "lsof", "-t", "-i:3001" ]
       timeout: 10s
