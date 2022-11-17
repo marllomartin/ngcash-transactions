@@ -9,6 +9,7 @@
     "moduleResolution": "node",
     "noImplicitAny": false,
     "baseUrl": ".", 
+    "typeRoots" : ["./src/types", "./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
