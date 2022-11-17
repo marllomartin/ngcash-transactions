@@ -6,6 +6,10 @@ class ValidateMiddleware {
   static async validateUser(req: Request, res: Response, next: NextFunction) {
     const { username, password } = req.body;
 
+    if (!username || !password) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'All fields must be filled' });
+    }
+
     if (username.length < 3) {
       return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Username must be at least three characters long' });
     }
