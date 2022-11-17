@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Op } from 'sequelize';
 import ITransaction from '../interfaces/ITransaction';
 import AccountModel from '../database/models/accounts'
 import TransactionModel from '../database/models/transactions';
@@ -20,6 +20,13 @@ class TransactionService {
       return await TransactionModel.create({ debitedAccountId, creditedAccountId, value });
     }
   };
+
+  static async getUserTransactions(id: number): Promise<Object> {
+    const transactions = await TransactionModel
+      .findAll({ where: { [Op.or]: [{ debitedAccountId: id }, { creditedAccountId: id }] } })
+
+    return transactions;
+  }
 }
 
 export default TransactionService;

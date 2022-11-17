@@ -12,6 +12,16 @@ class TransactionController {
       return res.status(StatusCodes.NOT_FOUND).send({ message: getErrorMessage(Error) });
     }
   };
+
+  static getUserTransactions = async (req: Request, res: Response) => {
+    try {
+      const id = req.userId;
+      const result = await TransactionService.getUserTransactions(id);
+      return res.status(StatusCodes.OK).json(result);
+    } catch (Error) {
+      return res.status(StatusCodes.NOT_FOUND).send({ message: getErrorMessage(Error) });
+    }
+  };
 }
 
 export default TransactionController;
