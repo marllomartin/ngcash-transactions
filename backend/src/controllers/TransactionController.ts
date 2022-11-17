@@ -5,6 +5,11 @@ import getErrorMessage from '../utils/getErrorMessage';
 
 class TransactionController {
   static createTransaction = async (req: Request, res: Response) => {
+    const userId = req.userId;
+    const { debitedAccountId } = req.body;
+
+    if (String(userId) != debitedAccountId) return res.status(StatusCodes.FORBIDDEN).send({ message: 'Invalid transaction' });
+
     try {
       const result = await TransactionService.createTransaction(req.body);
       return res.status(StatusCodes.OK).json(result);
