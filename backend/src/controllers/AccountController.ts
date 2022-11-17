@@ -1,0 +1,18 @@
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import AccountService from '../services/AccoutService';
+import getErrorMessage from '../utils/getErrorMessage';
+
+class UserController {
+  static getAccountBalance = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const result = await AccountService.getAccountBalance(id);
+      return res.status(StatusCodes.OK).json(result);
+    } catch (Error) {
+      return res.status(StatusCodes.NOT_FOUND).send({ message: getErrorMessage(Error) });
+    }
+  };
+}
+
+export default UserController;
