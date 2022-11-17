@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import AccountService from '../services/AccoutService';
+import AccountService from '../services/AccountService';
 import getErrorMessage from '../utils/getErrorMessage';
 
 class UserController {
