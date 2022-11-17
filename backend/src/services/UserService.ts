@@ -21,7 +21,7 @@ class UserService {
     const secret = String(JWT_SECRET);
     const token = sign({ payload: username }, secret, { expiresIn: '24h' });
 
-    return { username, token };
+    return { token };
   };
 
   static async login(obj: ILogin): Promise<Object> {
