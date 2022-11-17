@@ -1,0 +1,17 @@
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import TransactionService from '../services/TransactionService';
+import getErrorMessage from '../utils/getErrorMessage';
+
+class TransactionController {
+  static createTransaction = async (req: Request, res: Response) => {
+    try {
+      const result = await TransactionService.createTransaction(req.body);
+      return res.status(StatusCodes.OK).json(result);
+    } catch (Error) {
+      return res.status(StatusCodes.NOT_FOUND).send({ message: getErrorMessage(Error) });
+    }
+  };
+}
+
+export default TransactionController;

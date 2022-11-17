@@ -42,10 +42,10 @@ Transaction.init({
   }
 
 }, {
-  underscored: true,
   sequelize: db,
   modelName: 'Transaction',
-  timestamps: false,
+  timestamps: true,
+  updatedAt: false
 });
 
 export default Transaction;
