@@ -1,7 +1,7 @@
-interface Transaction {
+interface ITransaction {
   debitedAccountId: string,
   creditedAccountId: string,
   value: number
 }
 
-export default Transaction;
+export default ITransaction;

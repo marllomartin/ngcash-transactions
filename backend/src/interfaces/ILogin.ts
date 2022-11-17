@@ -1,6 +1,6 @@
-interface Login {
+interface ILogin {
   username: string,
   password: string
 }
 
-export default Login;
+export default ILogin;
