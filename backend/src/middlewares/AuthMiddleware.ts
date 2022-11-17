@@ -6,7 +6,7 @@ import UserModel from '../database/models/users';
 
 const { JWT_SECRET } = process.env;
 
-interface JwtPayload {
+interface IJwtPayload {
   payload: any
 }
 
@@ -18,10 +18,12 @@ class AuthMiddleware {
 
     try {
       const secret = String(JWT_SECRET);
-      const decoded = decode(token, secret as any) as JwtPayload;
+      const decoded = decode(token, secret as any) as IJwtPayload;
       const findUser = await UserModel.findOne({ where: { username: decoded.payload as any } });
 
       if (!findUser) return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid token' });
+
+      req.userId = findUser.id;
 
       next();
     } catch (Error: any) {
