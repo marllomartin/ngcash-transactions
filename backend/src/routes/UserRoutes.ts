@@ -11,6 +11,6 @@ const router = Router();
 router.post('/register', validateUser, register);
 
 // Login
-router.post('/login', login);
+router.post('/login', validateUser, login);
 
 export default router;
