@@ -13,6 +13,8 @@ const { expect } = chai;
 
 describe('[POST] Create Transaction', () => {
   let token: string;
+  const firstTestId = 11111;
+  const secondTestId = 22222;
 
   before(async () => {
     shelljs.exec(DATABASE_RESEED, { silent: true });
@@ -34,8 +36,8 @@ describe('[POST] Create Transaction', () => {
       .request(app).post('/transaction')
       .set('authorization', token)
       .send({
-        "debitedAccountId": 1,
-        "creditedAccountId": 2,
+        "debitedAccountId": firstTestId,
+        "creditedAccountId": secondTestId,
         "value": 5.55
       });
 
@@ -49,8 +51,8 @@ describe('[POST] Create Transaction', () => {
       .request(app).post('/transaction')
       .set('authorization', token)
       .send({
-        "debitedAccountId": 1,
-        "creditedAccountId": 1,
+        "debitedAccountId": firstTestId,
+        "creditedAccountId": firstTestId,
         "value": 5.55
       });
 
@@ -63,8 +65,8 @@ describe('[POST] Create Transaction', () => {
       .request(app).post('/transaction')
       .set('authorization', token)
       .send({
-        "debitedAccountId": 2,
-        "creditedAccountId": 3,
+        "debitedAccountId": secondTestId,
+        "creditedAccountId": firstTestId,
         "value": 5.55
       });
 
@@ -77,8 +79,8 @@ describe('[POST] Create Transaction', () => {
       .request(app).post('/transaction')
       .set('authorization', token)
       .send({
-        'debitedAccountId': 1,
-        'creditedAccountId': 2,
+        'debitedAccountId': firstTestId,
+        'creditedAccountId': secondTestId,
         'value': 5555.55
       });
 

@@ -13,6 +13,7 @@ const { expect } = chai;
 
 describe('[GET] Get Account Balance', () => {
   let token: string;
+  const testId = 11111;
 
   before(async () => {
     shelljs.exec(DATABASE_RESEED, { silent: true });
@@ -31,7 +32,7 @@ describe('[GET] Get Account Balance', () => {
 
   it('Account balance info is returned with a correct status when get balance request is successful', async () => {
     const res = await chai
-      .request(app).get('/balance/1')
+      .request(app).get(`/balance/${testId}`)
       .set('authorization', token);
 
     expect(res.body).to.be.an('Object');
