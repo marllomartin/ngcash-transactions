@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import UserRoutes from './routes/UserRoutes';
 import AccountRoutes from './routes/AccountRoutes';
 import TransactionRoutes from './routes/TransactionRoutes';
@@ -22,7 +23,7 @@ class App {
       next();
     };
 
-    this.app.use(express.json());
+    this.app.use(express.json(), cors());
     this.app.use(accessControl);
 
     this.app.use(UserRoutes, AccountRoutes, TransactionRoutes);
