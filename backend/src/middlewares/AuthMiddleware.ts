@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { decode, verify } from 'jsonwebtoken';
+import { decode } from 'jsonwebtoken';
 import UserModel from '../database/models/users';
 
 const { JWT_SECRET } = process.env;
