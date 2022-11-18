@@ -7,10 +7,6 @@ class TransactionService {
   static async createTransaction(obj: ITransaction): Promise<Object> {
     const { debitedAccountId, creditedAccountId, value } = obj;
 
-    if (debitedAccountId === creditedAccountId) {
-      throw new Error('Invalid transaction: cannot send funds to same account');
-    }
-
     const userAccount = await AccountModel.findOne({ where: { id: debitedAccountId } });
 
     if (userAccount) {

@@ -24,6 +24,16 @@ class ValidateMiddleware {
 
     next();
   };
+
+  static async validateTransaction(req: Request, res: Response, next: NextFunction) {
+    const { debitedAccountId, creditedAccountId } = req.body;
+
+    if (debitedAccountId === creditedAccountId) {
+      return res.status(StatusCodes.FORBIDDEN).json({ message: 'Invalid transaction: cannot send funds to same account' });
+    }
+
+    next();
+  };
 }
 
 export default ValidateMiddleware;
