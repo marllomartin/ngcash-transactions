@@ -1,14 +1,20 @@
+import shelljs from 'shelljs';
 import chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { app } from '../app';
+import { DATABASE_RESEED } from '../utils/index';
+import { app } from '../../app';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('[POST] Login', () => {
+  before(() => {
+    shelljs.exec(DATABASE_RESEED, { silent: true });
+  });
+
   it('Status 200 is returned when login request is successful and a token is returned', async () => {
     const res = await chai
       .request(app).post('/login')

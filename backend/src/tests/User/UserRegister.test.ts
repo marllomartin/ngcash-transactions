@@ -1,14 +1,20 @@
+import shelljs from 'shelljs';
 import chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { app } from '../app';
+import { DATABASE_RESEED } from '../utils/index';
+import { app } from '../../app';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('[POST] Register', () => {
+  before(() => {
+    shelljs.exec(DATABASE_RESEED, { silent: true });
+  });
+
   it('Status 201 is returned when register request is successful and a token is returned', async () => {
     const res = await chai
       .request(app).post('/register')
@@ -19,7 +25,7 @@ describe('[POST] Register', () => {
 
     expect(res.status).to.be.equal(201);
     expect(res.body).to.be.an('Object');
-    expect(res.body).to.have.keys('token');    
+    expect(res.body).to.have.keys('token');
   });
 
   it('An error message is returned when registering an invalid username', async () => {
