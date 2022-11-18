@@ -55,7 +55,7 @@ describe('[POST] Create Transaction', () => {
       });
 
     expect(res.body.message).to.be.equal('Invalid transaction: cannot send funds to same account');
-    expect(res.status).to.be.equal(404);
+    expect(res.status).to.be.equal(403);
   });
 
   it('An error is returned when the transaction is forbidden', async () => {

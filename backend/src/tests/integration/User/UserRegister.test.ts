@@ -22,7 +22,7 @@ describe('[POST] Register', () => {
         username: "newtesting",
         password: "Testing12345",
       });
-
+    
     expect(res.status).to.be.equal(201);
     expect(res.body).to.be.an('Object');
     expect(res.body).to.have.keys('token');
