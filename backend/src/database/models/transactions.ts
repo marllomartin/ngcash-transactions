@@ -22,7 +22,7 @@ Transaction.init({
     references: {
       model: 'Users',
       key: 'id',
-    }
+    },
   },
   creditedAccountId: {
     allowNull: false,
@@ -30,7 +30,7 @@ Transaction.init({
     references: {
       model: 'Users',
       key: 'id',
-    }
+    },
   },
   value: {
     allowNull: false,
@@ -38,14 +38,14 @@ Transaction.init({
   },
   createdAt: {
     allowNull: false,
-    type: DataTypes.DATE
-  }
+    type: DataTypes.DATE,
+  },
 
 }, {
   sequelize: db,
   modelName: 'Transaction',
   timestamps: true,
-  updatedAt: false
+  updatedAt: false,
 });
 
 export default Transaction;

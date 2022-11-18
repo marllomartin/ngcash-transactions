@@ -1,13 +1,14 @@
 import 'dotenv/config';
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { decode } from 'jsonwebtoken';
+import { decode, verify } from 'jsonwebtoken';
+import getErrorMessage from '../utils/getErrorMessage';
 import UserModel from '../database/models/users';
 
 const { JWT_SECRET } = process.env;
 
 interface IJwtPayload {
-  payload: any
+  payload: object
 }
 
 class AuthMiddleware {
@@ -18,18 +19,21 @@ class AuthMiddleware {
 
     try {
       const secret = String(JWT_SECRET);
-      const decoded = decode(token, secret as any) as IJwtPayload;
-      const findUser = await UserModel.findOne({ where: { username: decoded.payload as any } });
+      const verified = verify(token, secret);
 
-      if (!findUser) return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid token' });
+      if (!verified) return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid token' });
 
-      req.userId = findUser.id;
+      const decoded = decode(token, secret as never) as IJwtPayload;
+      const findUser = await UserModel
+        .findOne({ where: { username: decoded.payload as IJwtPayload } });
+
+      req.userId = findUser?.id;
 
       next();
-    } catch (Error: any) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: Error.message });
+    } catch (Error) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: getErrorMessage(Error) });
     }
-  };
+  }
 }
 
 export default AuthMiddleware;

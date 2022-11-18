@@ -3,8 +3,8 @@ import chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { DATABASE_RESEED } from '../utils/index';
-import { app } from '../../app';
+import { DATABASE_RESEED } from '../../utils/index';
+import { app } from '../../../app';
 
 chai.use(chaiHttp);
 
@@ -15,14 +15,14 @@ describe('[POST] Register', () => {
     shelljs.exec(DATABASE_RESEED, { silent: true });
   });
 
-  it('Status 201 is returned when register request is successful and a token is returned', async () => {
+  it('Correct status is returned when register request is successful and a token is returned', async () => {
     const res = await chai
       .request(app).post('/register')
       .send({
         username: "newtesting",
         password: "Testing12345",
       });
-
+    
     expect(res.status).to.be.equal(201);
     expect(res.body).to.be.an('Object');
     expect(res.body).to.have.keys('token');
@@ -64,7 +64,7 @@ describe('[POST] Register', () => {
     expect(res.body.message).to.be.equal('Password needs at least one uppercase letter');
   });
 
-  it('Status 400 is returned when a register field is missing', async () => {
+  it('Correct status is returned when a register field is missing', async () => {
     const res = await chai
       .request(app).post('/register')
       .send({

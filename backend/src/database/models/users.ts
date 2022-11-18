@@ -28,14 +28,14 @@ User.init({
     type: DataTypes.INTEGER,
     references: {
       model: 'Accounts',
-      key: 'id'
-    }
-  }
+      key: 'id',
+    },
+  },
 
 }, {
   sequelize: db,
   modelName: 'User',
-  timestamps: false
+  timestamps: false,
 });
 
 export default User;

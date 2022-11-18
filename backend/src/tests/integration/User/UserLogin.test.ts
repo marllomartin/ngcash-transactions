@@ -3,8 +3,8 @@ import chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { DATABASE_RESEED } from '../utils/index';
-import { app } from '../../app';
+import { DATABASE_RESEED } from '../../utils/index';
+import { app } from '../../../app';
 
 chai.use(chaiHttp);
 
@@ -15,7 +15,7 @@ describe('[POST] Login', () => {
     shelljs.exec(DATABASE_RESEED, { silent: true });
   });
 
-  it('Status 200 is returned when login request is successful and a token is returned', async () => {
+  it('Correct status is returned when login request is successful and a token is returned', async () => {
     const res = await chai
       .request(app).post('/login')
       .send({
@@ -28,7 +28,7 @@ describe('[POST] Login', () => {
     expect(res.body).to.have.key('token');
   });
 
-  it('Status 401 is returned when given wrong login credentials', async () => {
+  it('Correct status is returned when given wrong login credentials', async () => {
     const res = await chai
       .request(app).post('/login')
       .send({
@@ -50,7 +50,7 @@ describe('[POST] Login', () => {
     expect(res.body.message).to.be.equal('Incorrect username or password');
   });
 
-  it('Status 400 is returned when a login field is missing', async () => {
+  it('Correct is returned when a login field is missing', async () => {
     const res = await chai
       .request(app).post('/login')
       .send({
