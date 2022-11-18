@@ -6,6 +6,9 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto](#rodando-o-projeto-com-o-docker)
 - [Documentação da API](#documentação-da-api)
+- [Testes](#rodando-os-testes)
+
+## Sobre
 
 ## Funcionalidades
 Nessa aplicação, o usuário é capaz de:
@@ -23,6 +26,8 @@ Nessa aplicação, o usuário é capaz de:
     * As credenciais sensíveis de cada usuário são *hashadas* ao serem salvas no banco;
   
   * Visualizar saldo;
+  
+    * Um usuário só poderá visualizar o saldo de sua própria conta;
   
   * Realizar transações para outros usuários cadastrados;
    
@@ -68,3 +73,149 @@ Na pasta raíz do projeto:
 ```
 docker-compose up --build
 ```
+
+## Documentação da API
+
+### Cadastro
+
+Tipo de Requisição: **POST**
+
+PATH: **http://localhost:3001/register**
+
+Exemplo de Body:
+```
+{
+  "username": "newuser",
+  "password": "Secret12345"
+}
+```
+| Parâmetro | Descrição | Tipo |
+|:----------|:-------------------|:-------|
+| `username` |  O nome de usuário a ser cadastrado, deve ter pelo menos 3 caracteres. | String |
+| `password` |  A senha do usuário a ser cadastrado, deve ter pelo menos 8 caracteres, um número e uma letra maiúscula. | String |
+
+<details><summary>Exemplo de retorno</summary>
+
+<br>
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoibmV3dXNlciIsImlhdCI6MTY2ODc4ODcyMCwiZXhwIjoxNjY4ODc1MTIwfQ.8JPO-5tIqvQJAPUaoQspRt65ZnLqLxXBless1TNbDCk"
+}
+```
+</details>
+
+### Login
+
+Tipo de Requisição: **POST**
+
+PATH: **http://localhost:3001/login**
+
+Exemplo de Body:
+```
+{
+  "username": "user",
+  "password": "Secret54321"
+}
+```
+| Parâmetro | Descrição | Tipo |
+|:----------|:-------------------|:-------|
+| `username` |  O nome de usuário que irá fazer o login. | String |
+| `password` |  A senha do usuário que irá fazer o login. | String |
+
+<details><summary>Exemplo de retorno</summary>
+
+<br>
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoibmV3dXNlciIsImlhdCI6MTY2ODc4ODcyMCwiZXhwIjoxNjY4ODc1MTIwfQ.8JPO-5tIqvQJAPUaoQspRt65ZnLqLxXBless1TNbDCk"
+}
+```
+</details>
+
+### Realizar Transações
+
+Essa requisição necessita que o usuário esteja autenticado, enviando um token válido em um header 'authorization'.
+
+Tipo de Requisição: **POST**
+
+PATH: **http://localhost:3001/transaction**
+
+Exemplo de Body:
+```
+{
+  "debitedAccountId": "1",
+  "creditedAccountId": "2",
+  "value": 45.50
+}
+```
+| Parâmetro | Descrição | Tipo |
+|:----------|:-------------------|:-------|
+| `debitedAccountId` |  O id da conta do usuário que terá seu saldo debitado, deve pertencer a conta do usuário autenticado que está realizando a transação. | Number |## Sobre
+| `creditedAccountId` |  O id da conta do usuário que receberá a transação e terá seu saldo creditado, deve ser diferente do 'debitedAccountId'. | Number |
+| `value` | O valor da transação. | Number |
+
+<details><summary>Exemplo de retorno</summary>
+
+<br>
+
+```
+{
+  "balance": "100.00"
+}
+```
+
+</details>
+
+### Checagem de Saldo da Conta
+
+Essa requisição necessita que o usuário esteja autenticado, enviando um token válido em um header 'authorization'.
+
+Tipo de Requisição: **GET**
+
+PATH: **http://localhost:3001/balance/{accountId}**
+
+<details><summary>Exemplo de retorno</summary>
+
+<br>
+
+```
+{
+  "balance": "100.00"
+}
+```
+
+</details>
+
+### Visualizar Transações de Usuário
+
+Essa requisição necessita que o usuário esteja autenticado, enviando um token válido em um header 'authorization'.
+
+Tipo de Requisição: **GET**
+
+PATH: **http://localhost:3001/user/transactions**
+
+<details><summary>Exemplo de retorno</summary>
+
+<br>
+
+```
+[
+  {
+    "id": 1,
+    "debitedAccountId": 1,
+    "creditedAccountId": 2,
+    "value": "10.50",
+    "createdAt": "2022-11-18T16:10:25.766Z"
+  },
+  {
+    "id": 2,
+    "debitedAccountId": 2,
+    "creditedAccountId": 1,
+    "value": "30.55",
+    "createdAt": "2022-11-18T16:10:45.036Z"
+  }
+]
+```
+</details>
