@@ -8,7 +8,7 @@ class TransactionService {
     const { debitedAccountId, creditedAccountId, value } = obj;
 
     if (debitedAccountId === creditedAccountId) {
-      throw new Error('Invalid transaction');
+      throw new Error('Invalid transaction: cannot send funds to same account');
     }
 
     const userAccount = await AccountModel.findOne({ where: { id: debitedAccountId } });
@@ -24,11 +24,12 @@ class TransactionService {
         .update({ balance: Sequelize.literal(`balance + ${value}`) }, { where: { id: creditedAccountId } });
 
       if (debitAccount && creditAccount) {
-        return await TransactionModel.create({ debitedAccountId, creditedAccountId, value });
+        const transaction = await TransactionModel.create({ debitedAccountId, creditedAccountId, value });
+        return transaction;
       }
     }
 
-    throw new Error('Unknown error');
+    throw new Error('aqui');
   };
 
   static async getUserTransactions(id: number): Promise<Object> {
