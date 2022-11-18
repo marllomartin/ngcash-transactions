@@ -12,7 +12,7 @@ Nessa aplicação, o usuário é capaz de:
 
   * Se cadastrar na plataforma;
   
-    * Ao se cadastrar na plataforma, o usuário terá um saldo de 100,00;
+    * Ao se cadastrar na plataforma, o usuário terá um saldo inicial de 100,00;
 
   * Fazer o login na aplicação, caso já esteja cadastrado;
   
