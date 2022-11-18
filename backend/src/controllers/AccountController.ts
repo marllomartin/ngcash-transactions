@@ -5,10 +5,12 @@ import getErrorMessage from '../utils/getErrorMessage';
 
 class UserController {
   static getAccountBalance = async (req: Request, res: Response) => {
-    const userId = req.userId;
+    const { userId } = req;
     const { id } = req.params;
 
-    if (String(userId) != id) return res.status(StatusCodes.FORBIDDEN).send({ message: 'Unavailable' });
+    if (String(userId) !== id) {
+      return res.status(StatusCodes.FORBIDDEN).send({ message: 'Unavailable' });
+    }
 
     try {
       const result = await AccountService.getAccountBalance(id);
