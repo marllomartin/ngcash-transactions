@@ -25,8 +25,16 @@ Nessa aplicação, o usuário é capaz de:
   * Visualizar saldo;
   
   * Realizar transações para outros usuários cadastrados;
+   
+    * Um usuário só pode realizar transações pela sua própria conta;
+    
+    * Um usuário só poderá realizar transações caso tenha saldo o suficiente;
   
   * Receber transações de outros usuários cadastrados;
+   
+    * Um usuário só pode receber transações de outros usuários;
+  
+  * Visualizar transações em que participou;
 
 ## Tecnologias Utilizadas
 
