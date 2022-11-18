@@ -4,8 +4,8 @@ import chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { DATABASE_RESEED } from '../utils/index';
-import { app } from '../../app';
+import { DATABASE_RESEED } from '../../utils/index';
+import { app } from '../../../app';
 
 chai.use(chaiHttp);
 
