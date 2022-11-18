@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch \"./src/**\" ./src/server.ts",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "test": "mocha -r ts-node/register ./src/tests/*$NAME*.{test,spec}.ts -t 10000 --exit",
+    "test": "mocha -r ts-node/register ./src/tests/**/*$NAME*.{test,spec}.ts -t 10000 --exit",
     "start": "npm run db:reset && npm run dev"
   },
   "keywords": [],
@@ -24,6 +24,8 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.25.6",
     "sequelize-typescript": "^2.1.5",
+    "shelljs": "^0.8.5",
+    "supertest": "^6.3.1",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
@@ -34,7 +36,9 @@
     "@types/md5": "^2.3.2",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.9",
+    "@types/shelljs": "^0.8.11",
     "@types/sinon": "^10.0.13",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "chai": "^4.3.7",
