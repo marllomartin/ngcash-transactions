@@ -1,12 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Container } from './styles';
 
-const Menu: React.FC = () => (
-  <Container>
-    <nav>
-      <a href="/">Log out</a>
-    </nav>
-  </Container>
-)
+const Menu: React.FC = () => {
+
+  const history = useNavigate();
+  const [userData] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
+
+  useEffect(() => {
+    if (userData === undefined || userData === null) {
+      localStorage.removeItem('user');
+      history('/');
+    }
+  }, [history, userData]);
+
+  const handleLogOut = () => {
+    localStorage.removeItem('user');
+    history('/');
+  }
+
+  return (
+    <Container>
+      <nav>
+        <a
+          href="/"
+          onClick={handleLogOut}
+        >
+          Log out
+        </a>
+      </nav>
+    </Container>
+  )
+}
 
 export default Menu;
