@@ -16,12 +16,13 @@ class UserService {
     if (verify) throw new Error('User already registered');
 
     const newAccount = await AccountModel.create({ balance: 100 });
-    await UserModel.create({ username, password: translated, accountId: newAccount.id });
+    const newUser = await UserModel
+      .create({ username, password: translated, accountId: newAccount.id });
 
     const secret = String(JWT_SECRET);
     const token = sign({ payload: username }, secret, { expiresIn: '24h' });
 
-    return { token };
+    return { id: newUser.id, username, token };
   }
 
   static async login(obj: ILogin): Promise<object> {
@@ -36,7 +37,7 @@ class UserService {
     const secret = String(JWT_SECRET);
     const token = sign({ payload: username }, secret, { expiresIn: '24h' });
 
-    return { token };
+    return { id: verify.id, username: verify.username, token };
   }
 }
 
