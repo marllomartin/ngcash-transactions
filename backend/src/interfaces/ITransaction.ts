@@ -1,6 +1,6 @@
 interface ITransaction {
   debitedAccountId: number,
-  creditedAccountId: number,
+  creditedAccountUsername: string,
   value: number
 }
 
