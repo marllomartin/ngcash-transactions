@@ -9,6 +9,12 @@ export const LoaderContainer = styled.div`
   .span {
   }
 `
+export const NotFound = styled.div`
+  p {
+    font-size: 20px;
+    margin: 50px;
+  }
+`
 
 export const Table = styled.table`
   margin-top: 30px;
@@ -27,34 +33,5 @@ export const Table = styled.table`
 
   tr:nth-child(even) {
     background-color: #e7ccfc;
-  }
-`
-
-export const ButtonArea = styled.div`
-  display: flex;
-  justify-content: center;
-
-  button {
-    align-self: center;
-    border: none;
-    height: 40px;
-    font-weight: 900;
-    cursor: pointer;
-    margin: 5px;
-    background-color: transparent;
-    color: white;
-    text-transform: uppercase;
-    &:hover {
-      svg {
-      color: #dd373a;
-    }
-    }
-  }
-
-  svg {
-    height: 29px;
-    width: 30px;
-    color: black;
-    transition: 0.25s;
   }
 `
