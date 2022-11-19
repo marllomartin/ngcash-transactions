@@ -34,3 +34,12 @@ export const createTransaction = async (token: any, debitedAccountId: number, cr
     }
   });
 };
+
+export const getAccountBalance = async (token: any, accountId: number) => {
+  return api.get(
+    `balance/${accountId}`, {
+    headers: {
+      "authorization": token
+    }
+  });
+}
