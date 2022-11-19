@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { login, register } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
 import { ButtonArea, Form, InputContainer, InputGroup } from './styles';
@@ -7,6 +8,8 @@ const UserLogin: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
+
+  const history = useNavigate();
 
   const handleChangeUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -25,8 +28,20 @@ const UserLogin: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isRegistering) await register(username, password);
-    if (!isRegistering) await login(username, password);
+    if (isRegistering) {
+      await register(username, password)
+        .then((res) => {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          history('/transactions');
+        });
+    }
+    if (!isRegistering) {
+      await login(username, password)
+        .then((res) => {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          history('/transactions');
+        });
+    }
     setUsername("");
     setPassword("");
   }
@@ -45,6 +60,7 @@ const UserLogin: React.FC = () => {
                 type="text"
                 autoComplete="off"
                 required={true}
+                placeholder="boca09"
                 onChange={handleChangeUserName}
               />
             </InputGroup>
@@ -55,6 +71,7 @@ const UserLogin: React.FC = () => {
                 value={password}
                 type="password"
                 required={true}
+                placeholder="sua senha"
                 onChange={handleChangePassword}
               />
             </InputGroup>

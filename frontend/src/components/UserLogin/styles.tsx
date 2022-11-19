@@ -42,7 +42,7 @@ export const ButtonArea = styled.div`
 
   button {
     align-self: center;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 25px;
     width: 170px;
     height: 40px;
@@ -51,7 +51,7 @@ export const ButtonArea = styled.div`
     background-color: white;
     color: black;
     text-transform: uppercase;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    box-shadow: 5px 5px black;
   }
 
   button:hover {
