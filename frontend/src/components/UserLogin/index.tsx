@@ -84,12 +84,11 @@ const UserLogin: React.FC = () => {
             </button>
           </ButtonArea>
           <ButtonArea>
-            <button
-              type="button"
+            <p
               onClick={() => handleIsRegistering()}
             >
-              {isRegistering ? "Fazer Login" : "Novo Cadastro"}
-            </button>
+              {isRegistering ? "fazer login" : "novo cadastro"}
+            </p>
           </ButtonArea>
         </Form>
       </Container>

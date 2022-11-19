@@ -26,7 +26,7 @@ const Menu: React.FC = () => {
           href="/"
           onClick={handleLogOut}
         >
-          Log out
+          sair
         </a>
       </nav>
     </Container>

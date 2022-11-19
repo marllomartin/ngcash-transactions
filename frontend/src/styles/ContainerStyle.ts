@@ -6,7 +6,7 @@ export const Container = styled.div`
   padding: 33px;
   border: 3px solid black;
   background-color: #fff;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 
   header {
     width: 100%;
@@ -25,7 +25,7 @@ export const Container = styled.div`
     height: 3px;
     width: 27px;
     border-radius: 8px;
-    background-color: #8170F4;
+    background-color: black;
   }
 
   input {

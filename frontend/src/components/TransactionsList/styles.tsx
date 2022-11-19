@@ -16,6 +16,25 @@ export const NotFound = styled.div`
   }
 `
 
+export const StarContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    svg {
+    width: 3em;
+    }
+
+    span {
+      margin: 0px 20px;
+      position: relative;
+      white-space: nowrap;
+      font-size: 20px;
+      font-weight: 600;
+      color: #0E1207;
+    }
+`
+
 export const Table = styled.table`
   margin-top: 30px;
   table-layout: fixed;
@@ -32,6 +51,6 @@ export const Table = styled.table`
   }
 
   tr:nth-child(even) {
-    background-color: #e7ccfc;
+    background-color: #e2e2e2;
   }
 `

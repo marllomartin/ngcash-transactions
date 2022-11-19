@@ -43,7 +43,7 @@ export const ButtonArea = styled.div`
   button {
     align-self: center;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 15px;
     width: 170px;
     height: 40px;
     font-weight: 700;
@@ -52,15 +52,31 @@ export const ButtonArea = styled.div`
     color: black;
     text-transform: uppercase;
     box-shadow: 5px 5px black;
+    margin: 4px 10px 4px 10px;
   }
 
-  button:hover {
-    background-color: #8170F4;
-  }
+  button:active {
+    box-shadow: 0 0 0 white;
+    margin: 6px 10px 2px 10px;
+}
 
   .button:disabled {
     background-color: #999999;
     color: black;
     pointer-events: none;
+  }
+
+  p {
+    font-size: 20px;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  p:active {
+    color: #000000a5;
   }
 `

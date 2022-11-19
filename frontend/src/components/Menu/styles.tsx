@@ -7,14 +7,16 @@ export const Container = styled.div`
   align-items: center;
 
   a {
-    
     font-size: 20px;
     margin: 10px;
-    color: #8170F4;
+    color: black;
     padding: 10px;
     white-space: nowrap;
-    text-decoration: none;
-    text-transform: uppercase;
+    text-decoration: underline;
     font-weight: 600;
+  }
+
+  a:active {
+    color: #000000a5;
   }
 `
