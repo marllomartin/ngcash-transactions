@@ -1,5 +1,9 @@
 # ng.cash transactions
 
+<p align="center" width="100%">
+    <img width="90%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/DESKTOP.png">
+</p>
+
 ## Sumário
 - [Sobre](#sobre)
 - [Funcionalidades](#funcionalidades)
@@ -33,6 +37,12 @@ Nessa aplicação, o usuário é capaz de:
   * Receber transferências de outros usuários cadastrados;
   
   * Visualizar as transferências em que participou;
+  
+  * Filtrar a visualização das transferências por transferências realizadas ou recebidas;
+  
+<p align="center" width="100%">
+    <img width="70%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/MOBILE.png">
+</p>
 
 ## Tecnologias Utilizadas
 
