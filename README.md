@@ -1,7 +1,7 @@
 # ng.cash transactions
 
 <p align="center" width="100%">
-    <img width="80%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/DESKTOP.png">
+    <img width="90%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/DESKTOP.png">
 </p>
 
 ## Sumário
