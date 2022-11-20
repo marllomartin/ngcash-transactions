@@ -18,7 +18,7 @@ const UserLogin: React.FC = () => {
 
   const [registerError, setRegisterError] = useState<string>("");
 
-  const {setIsAuthenticated} = useContext(SessionContext);
+  const { setIsAuthenticated } = useContext(SessionContext);
 
   const history = useNavigate();
 
@@ -61,8 +61,12 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         })
         .catch(err => {
+          console.log(err);
+
           if (err.response.data.message === 'Password needs at least one uppercase letter') {
-            setRegisterError('Atente-se nas regras para a criação de senha.');
+            setPasswordError('Senha deve conter uma letra maiúscula.');
+          } else if (err.response.data.message === 'Password must be at least eight characters long') {
+            setPasswordError('Senha deve ter no mínimo 8 caracteres.');
           } else if (err.response.status === 400) {
             setRegisterError('Todos os campos devem ser preenchidos.');
           }
