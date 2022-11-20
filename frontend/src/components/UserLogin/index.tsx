@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { SessionContext } from '../../context/SessionContext';
 import { login, register } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
 import SvgEyeOpen from '../../styles/svg/eye-open';
@@ -16,6 +17,8 @@ const UserLogin: React.FC = () => {
   const [passwordError, setPasswordError] = useState<string>("");
 
   const [registerError, setRegisterError] = useState<string>("");
+
+  const {setIsAuthenticated} = useContext(SessionContext);
 
   const history = useNavigate();
 
@@ -54,6 +57,7 @@ const UserLogin: React.FC = () => {
       await register(username, password)
         .then((res) => {
           localStorage.setItem('user', JSON.stringify(res.data));
+          setIsAuthenticated(true);
           history('/transactions');
         })
         .catch(err => {
@@ -72,6 +76,7 @@ const UserLogin: React.FC = () => {
       await login(username, password)
         .then((res) => {
           localStorage.setItem('user', JSON.stringify(res.data));
+          setIsAuthenticated(true);
           history('/transactions');
         })
         .catch(err => {
