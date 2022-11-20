@@ -15,6 +15,8 @@ const UserLogin: React.FC = () => {
   const [usernameError, setUsernameError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
 
+  const [requiredFields, setRequiredFields] = useState<boolean>(false);
+
   const history = useNavigate();
 
   const handleChangeUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,12 +37,13 @@ const UserLogin: React.FC = () => {
     setPasswordShown(false);
     setIsRegistering(!isRegistering);
     if (!isRegistering) {
-      setUsernameError('* Nome de usuário deve ter no mínimo 3 caracteres.');
-      setPasswordError('* Senha deve conter uma letra maiúscula e ter no mínimo 8 caracteres.')
+      setUsernameError('Nome de usuário deve ter no mínimo 3 caracteres.');
+      setPasswordError('Senha deve conter uma letra maiúscula e ter no mínimo 8 caracteres.');
     }
     if (isRegistering) {
       setUsernameError('');
-      setPasswordError('')
+      setPasswordError('');
+      setRequiredFields(false);
     }
   }
 
@@ -52,6 +55,12 @@ const UserLogin: React.FC = () => {
         .then((res) => {
           localStorage.setItem('user', JSON.stringify(res.data));
           history('/transactions');
+        })
+        .catch(err => {
+          console.log(err.response);
+          if (err.response.status === 400) {
+            setRequiredFields(true);
+          }
         });
     }
     if (!isRegistering) {
@@ -59,7 +68,16 @@ const UserLogin: React.FC = () => {
         .then((res) => {
           localStorage.setItem('user', JSON.stringify(res.data));
           history('/transactions');
-        });
+        })
+        .catch(err => {
+          if (err.response.status === 401 ||
+            err.response.data.message === 'Password needs at least one uppercase letter') {
+            setPasswordError('Usuário ou senha incorreto.');
+          } else if (err.response.status === 400) {
+            setPasswordError('Todos os campos devem ser preenchidos.');
+          }
+        }
+        );
     }
 
     setUsername("");
@@ -73,29 +91,30 @@ const UserLogin: React.FC = () => {
         <Form onSubmit={handleSubmit}>
           <InputContainer>
             <InputGroup>
-              <label>Nome de usuário:</label>
+              <label>{!requiredFields ? "Nome de usuário" : "*Nome de usuário:"}</label>
               <input
                 id="username"
                 value={username}
                 type="text"
                 autoComplete="off"
-                placeholder={isRegistering ? "novo usuário" : "boca09"}
+                placeholder={isRegistering ? "novo usuário" : "seu usuário"}
                 onChange={handleChangeUserName}
               />
               <span>{usernameError}</span>
             </InputGroup>
             <InputGroup>
-              <label>Senha:</label>
+              <label>{!requiredFields ? "Senha" : "*Senha:"}</label>
               <input
                 id="password"
                 value={password}
                 type={passwordShown ? "text" : "password"}
-                // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 placeholder={isRegistering ? "nova senha" : "sua senha"}
                 onChange={handleChangePassword}
               />
               <SvgEyeOpen onClick={togglePassword}></SvgEyeOpen>
               <span>{passwordError}</span>
+              {requiredFields ? <br/> : ""}
+              {requiredFields ? <span>Campos marcados com asterisco são obrigatórios.</span> : ""}
             </InputGroup>
 
           </InputContainer>
