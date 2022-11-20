@@ -16,13 +16,23 @@ export const NotFound = styled.div`
   }
 `
 
+export const BalanceContainer = styled.div`
+  border-radius: 6px;
+  margin: 15px 10px 20px;
+  padding: 15px;
+  border: 3px solid black;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+`
+
 export const StarContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
     svg {
-    width: 3em;
+    width: 2em;
     }
 
     span {

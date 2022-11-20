@@ -4,7 +4,7 @@ import { TransactionContext } from '../../context/TransactionContext';
 import { getAccountBalance, getTransactions } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
 import SvgNgcashStar from '../../styles/svg/ngcash-star';
-import { LoaderContainer, NotFound, StarContainer, Table } from './styles';
+import { BalanceContainer, LoaderContainer, NotFound, StarContainer, Table } from './styles';
 
 const TransactionsList: React.FC = () => {
 
@@ -47,14 +47,15 @@ const TransactionsList: React.FC = () => {
 
   return (
     <>
-      <Container>
+      <BalanceContainer>
         <StarContainer>
-          <span>{userData.username}</span>
-          <SvgNgcashStar
-          />
+          <span>
+            <SvgNgcashStar
+            />
+          </span>
           <span>{`Saldo:ㅤR$ ${balance}`}</span>
         </StarContainer>
-      </Container>
+      </BalanceContainer>
       <Container>
         <header>Minhas Transferências</header>
         {loading ?
