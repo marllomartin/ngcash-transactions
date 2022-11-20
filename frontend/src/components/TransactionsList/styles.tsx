@@ -25,6 +25,33 @@ export const BalanceContainer = styled.div`
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 `
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+
+  button{
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 100%;
+    height: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    text-transform: uppercase;
+    box-shadow: 5px 5px black;
+    margin: 4px 10px 4px 10px;
+  }
+
+  button:active {
+    box-shadow: 0 0 0 white;
+    margin: 6px 10px 2px 10px;
+  }
+`
+
 export const StarContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +81,7 @@ export const StarContainer = styled.div`
 `
 
 export const Table = styled.table`
-  margin-top: 30px;
+  margin-top: 20px;
   table-layout: fixed;
 
   th {

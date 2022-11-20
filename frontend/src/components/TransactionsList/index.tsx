@@ -5,7 +5,7 @@ import ITransaction from '../../interfaces/ITransaction';
 import { getAccountBalance, getTransactions } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
 import SvgNgcashStar from '../../styles/svg/ngcash-star';
-import { BalanceContainer, LoaderContainer, NotFound, StarContainer, Table } from './styles';
+import { BalanceContainer, ButtonContainer, LoaderContainer, NotFound, StarContainer, Table } from './styles';
 
 const TransactionsList: React.FC = () => {
 
@@ -15,6 +15,18 @@ const TransactionsList: React.FC = () => {
     transactions, setTransactions,
     balance, setBalance
   } = useContext(TransactionContext);
+
+  const [search, setSearch] = useState('');
+
+  const filterTransactions = (transaction: ITransaction) => {
+    if (search === "recebidas") {
+      return transaction.creditedAccountUsername.includes(userData.username);
+    }
+    if (search === "realizadas") {
+      return transaction.debitedAccountUsername.includes(userData.username)
+    };
+    return transaction;
+  }
 
   const loadTransactions = useCallback(async () => {
     try {
@@ -45,6 +57,8 @@ const TransactionsList: React.FC = () => {
     loadBalance();
   }, [loadTransactions, loadBalance]);
 
+  const filteredTransactions = transactions.filter((transaction: ITransaction) => filterTransactions(transaction));
+
 
   return (
     <>
@@ -60,15 +74,20 @@ const TransactionsList: React.FC = () => {
       </BalanceContainer>
       <Container>
         <header>Minhas Transferências</header>
+        <ButtonContainer>
+          <button onClick={() => setSearch('')}>todas</button>
+          <button onClick={() => setSearch('realizadas')}>realizadas</button>
+          <button onClick={() => setSearch('recebidas')}>recebidas</button>
+        </ButtonContainer>
         {loading ?
           <LoaderContainer>
             <ClockLoader color={"black"} />
           </LoaderContainer>
           :
           <>
-            {transactions.length === 0 ?
+            {filteredTransactions.length === 0 ?
               <NotFound>
-                <p>{`Você ainda não realizou nenhuma transferência :(`}</p>
+                <p>{`Você ainda não ${search !== "recebidas" ? "realizou" : "recebeu"} nenhuma transferência :(`}</p>
               </NotFound> :
               <Table>
                 <thead>
@@ -82,20 +101,21 @@ const TransactionsList: React.FC = () => {
 
                 <tbody>
                   {
-                    transactions.map((transaction: ITransaction) => {
-                      return (
-                        <tr key={transaction.id}>
-                          <td>{transaction.debitedAccountUsername}</td>
-                          <td>{transaction.creditedAccountUsername}</td>
-                          <td>R$ {transaction.value}</td>
-                          <td>
-                            {
-                              String(new Date(transaction.createdAt).toLocaleDateString())
-                            }
-                          </td>
-                        </tr>
-                      )
-                    })
+                    filteredTransactions
+                      .map((transaction: ITransaction) => {
+                        return (
+                          <tr key={transaction.id}>
+                            <td>{transaction.debitedAccountUsername}</td>
+                            <td>{transaction.creditedAccountUsername}</td>
+                            <td>R$ {transaction.value}</td>
+                            <td>
+                              {
+                                String(new Date(transaction.createdAt).toLocaleDateString())
+                              }
+                            </td>
+                          </tr>
+                        )
+                      })
                   }
                 </tbody>
               </Table>
