@@ -10,7 +10,7 @@ const TransactionsCreate: React.FC = () => {
   const {
     setLoading,
     setTransactions,
-    setBalance
+    balance, setBalance
   } = useContext(TransactionContext);
 
   const [creditedUser, setCreditedUser] = useState<string>("");
@@ -67,7 +67,9 @@ const TransactionsCreate: React.FC = () => {
         })
         .catch(err => {
           console.log(err);
-          if (err.response.data.message === 'Cannot send funds to yourself.') {
+          if (Number(newValue) > balance) {
+            setTransactionError('Saldo insuficiente.');
+          } else if (err.response.data.message === 'Cannot send funds to yourself.') {
             setTransactionError('Você não pode enviar transações para si mesmo.');
           } else if (err.response.status === 404) {
             setTransactionError('Nome de usuário não encontrado.');
@@ -106,7 +108,7 @@ const TransactionsCreate: React.FC = () => {
                 value={value}
                 disableGroupSeparators={true}
                 decimalsLimit={2}
-                onValueChange={(value) => setValue(value)}
+                onValueChange={(value) => { setTransactionError(""); setValue(value) }}
               />
               {transactionError ? <br /> : ""}
               {transactionError ? <span>{transactionError}</span> : ""}
