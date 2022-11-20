@@ -2,12 +2,18 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { login, register } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
+import SvgEyeOpen from '../../styles/svg/eye-open';
 import { ButtonArea, Form, InputContainer, InputGroup } from './styles';
 
 const UserLogin: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+
+  const [usernameError, setUsernameError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const history = useNavigate();
 
@@ -19,10 +25,23 @@ const UserLogin: React.FC = () => {
     setPassword(event.target.value);
   }
 
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   const handleIsRegistering = () => {
     setUsername("");
     setPassword("");
+    setPasswordShown(false);
     setIsRegistering(!isRegistering);
+    if (!isRegistering) {
+      setUsernameError('* Nome de usuário deve ter no mínimo 3 caracteres.');
+      setPasswordError('* Senha deve conter uma letra maiúscula e ter no mínimo 8 caracteres.')
+    }
+    if (isRegistering) {
+      setUsernameError('');
+      setPasswordError('')
+    }
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +61,7 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         });
     }
+
     setUsername("");
     setPassword("");
   }
@@ -59,22 +79,25 @@ const UserLogin: React.FC = () => {
                 value={username}
                 type="text"
                 autoComplete="off"
-                required={true}
-                placeholder="boca09"
+                placeholder={isRegistering ? "novo usuário" : "boca09"}
                 onChange={handleChangeUserName}
               />
+              <span>{usernameError}</span>
             </InputGroup>
             <InputGroup>
               <label>Senha:</label>
               <input
                 id="password"
                 value={password}
-                type="password"
-                required={true}
-                placeholder="sua senha"
+                type={passwordShown ? "text" : "password"}
+                // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                placeholder={isRegistering ? "nova senha" : "sua senha"}
                 onChange={handleChangePassword}
               />
+              <SvgEyeOpen onClick={togglePassword}></SvgEyeOpen>
+              <span>{passwordError}</span>
             </InputGroup>
+
           </InputContainer>
           <ButtonArea>
             <button

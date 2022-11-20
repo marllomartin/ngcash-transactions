@@ -19,6 +19,7 @@ export const InputGroup = styled.div`
   flex-direction: column;
   margin: 10px;
   width: 100%;
+  position: relative;
 
   label {
     margin-top: 15px;
@@ -32,6 +33,22 @@ export const InputGroup = styled.div`
     min-width: 80px;
     padding-left: 10px;
     margin: 5px;
+  }
+
+  span {
+    width: 100%;
+    margin-right: -20em;
+    margin-left: 5px;
+    font-size: 15px;
+  }
+
+  svg {
+    right: 0;
+    cursor: pointer;
+    margin-top: 45px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
   }
 `
 
