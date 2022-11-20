@@ -33,6 +33,13 @@ export const InputGroup = styled.div`
     padding-left: 10px;
     margin: 5px;
   }
+
+  span {
+    width: 100%;
+    margin-right: -20em;
+    margin-left: 5px;
+    font-size: 15px;
+  }
 `
 
 export const ButtonArea = styled.div`

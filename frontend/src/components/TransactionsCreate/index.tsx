@@ -16,8 +16,11 @@ const TransactionsCreate: React.FC = () => {
   const [creditedUser, setCreditedUser] = useState<string>("");
   const [value, setValue] = useState<any>("");
 
+  const [transactionError, setTransactionError] = useState<any>("");
+
   const handleChangeCreditedUser = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCreditedUser(event.target.value);
+    setTransactionError("");
   }
 
   const loadTransactions = useCallback(async () => {
@@ -46,23 +49,34 @@ const TransactionsCreate: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const newValue = value.replace(/,/g, '.'); 
-    console.log(newValue);
-    
-
-    try {
+    const newValue = value.replace(/,/g, '.');
+    if (Number(newValue) <= 0) {
+      setTransactionError('O valor a ser transferido deve ser maior que 0.');
+    }
+    if (Number(newValue) > 0) {
       await createTransaction(
         userData.token,
         userData.id,
         creditedUser,
-        Number(newValue))
-    } catch (error) {
-      console.log(error);
+        Number(newValue)
+      )
+        .then((res) => {
+          loadTransactions();
+          loadBalance();
+          setCreditedUser("");
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.response.data.message === 'Cannot send funds to yourself.') {
+            setTransactionError('Você não pode enviar transações para si mesmo.');
+          } else if (err.response.status === 404) {
+            setTransactionError('Nome de usuário não encontrado.');
+          }
+          if (!creditedUser) {
+            setTransactionError('Insira um nome de usuário.');
+          }
+        })
     }
-    loadTransactions();
-    loadBalance();
-    setCreditedUser("");
   }
 
   return (
@@ -79,7 +93,6 @@ const TransactionsCreate: React.FC = () => {
                 value={creditedUser}
                 autoComplete="off"
                 placeholder="nome de usuário"
-                required={true}
                 onChange={handleChangeCreditedUser}
               />
             </InputGroup>
@@ -90,12 +103,13 @@ const TransactionsCreate: React.FC = () => {
                 name="value"
                 prefix="R$"
                 placeholder="quantia a ser transferida"
-                defaultValue={0}
                 value={value}
                 disableGroupSeparators={true}
                 decimalsLimit={2}
                 onValueChange={(value) => setValue(value)}
               />
+              {transactionError ? <br /> : ""}
+              {transactionError ? <span>{transactionError}</span> : ""}
             </InputGroup>
           </InputContainer>
           <ButtonArea>
