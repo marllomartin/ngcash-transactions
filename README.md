@@ -153,7 +153,7 @@ Exemplo de Body:
 | Nome | Descrição | Tipo |
 |:----------|:-------------------|:-------|
 | `debitedAccountId` |  O id da conta do usuário que realizará a transferência e terá seu saldo debitado, deve pertencer a conta do usuário autenticado que está realizando a transação. | Number |
-| `creditedAccountUsername` |  O nome do usuário que receberá a transferência e terá seu saldo creditado, deve ser diferente do usuário que está realizando a transação. | Number |
+| `creditedAccountUsername` |  O nome do usuário que receberá a transferência e terá seu saldo creditado, deve ser diferente do usuário que está realizando a transação. | String |
 | `value` | O valor da transação. | Number |
 
 <details><summary>Exemplo de retorno</summary>
