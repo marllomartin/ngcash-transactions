@@ -50,6 +50,11 @@ export const ButtonContainer = styled.div`
     box-shadow: 0 0 0 white;
     margin: 6px 10px 2px 10px;
   }
+
+  .active {
+    box-shadow: 0 0 0 white;
+    margin: 6px 10px 2px 10px;
+  }
 `
 
 export const StarContainer = styled.div`

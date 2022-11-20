@@ -75,9 +75,24 @@ const TransactionsList: React.FC = () => {
       <Container>
         <header>Minhas Transferências</header>
         <ButtonContainer>
-          <button onClick={() => setSearch('')}>todas</button>
-          <button onClick={() => setSearch('realizadas')}>realizadas</button>
-          <button onClick={() => setSearch('recebidas')}>recebidas</button>
+          <button
+            onClick={() => setSearch('')}
+            className={search === '' ? 'active' : ''}
+          >
+            todas
+          </button>
+          <button
+            onClick={() => setSearch('realizadas')}
+            className={search === 'realizadas' ? 'active' : ''}
+          >
+            realizadas
+          </button>
+          <button
+            onClick={() => setSearch('recebidas')}
+            className={search === 'recebidas' ? 'active' : ''}
+          >
+            recebidas
+          </button>
         </ButtonContainer>
         {loading ?
           <LoaderContainer>
