@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import ClockLoader from 'react-spinners/ClockLoader';
 import { TransactionContext } from '../../context/TransactionContext';
+import ITransaction from '../../interfaces/ITransaction';
 import { getAccountBalance, getTransactions } from '../../services/api';
 import { Container } from '../../styles/ContainerStyle';
 import SvgNgcashStar from '../../styles/svg/ngcash-star';
@@ -53,7 +54,8 @@ const TransactionsList: React.FC = () => {
             <SvgNgcashStar
             />
           </span>
-          <span>{`Saldo:ㅤR$ ${balance}`}</span>
+          <p>{`${userData.username}`}</p>
+          <span>{`saldo:ㅤR$ ${balance}`}</span>
         </StarContainer>
       </BalanceContainer>
       <Container>
@@ -80,13 +82,17 @@ const TransactionsList: React.FC = () => {
 
                 <tbody>
                   {
-                    transactions.map((transaction: any) => {
+                    transactions.map((transaction: ITransaction) => {
                       return (
                         <tr key={transaction.id}>
                           <td>{transaction.debitedAccountUsername}</td>
                           <td>{transaction.creditedAccountUsername}</td>
                           <td>R$ {transaction.value}</td>
-                          <td>{transaction.createdAt}</td>
+                          <td>
+                            {
+                              String(new Date(transaction.createdAt).toLocaleDateString())
+                            }
+                          </td>
                         </tr>
                       )
                     })

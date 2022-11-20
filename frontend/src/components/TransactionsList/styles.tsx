@@ -32,11 +32,19 @@ export const StarContainer = styled.div`
     justify-content: center;
 
     svg {
-    width: 2em;
+    width: 1.5em;
+    margin: 0px -10px;
     }
-
+    p {
+      margin: 0px 10px;
+      position: relative;
+      white-space: nowrap;
+      font-size: 20px;
+      font-weight: 600;
+      color: #0E1207;
+    }
     span {
-      margin: 0px 20px;
+      margin: 0px 10px;
       position: relative;
       white-space: nowrap;
       font-size: 20px;
