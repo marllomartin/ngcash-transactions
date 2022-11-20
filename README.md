@@ -6,9 +6,10 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto](#rodando-o-projeto-com-o-docker)
 - [Documentação da API](#documentação-da-api)
-- [Testes](#rodando-os-testes)
+- [Testes de Integração](#testes-de-integração)
 
 ## Sobre
+Projeto de uma aplicação web fullstack que permite que usuários cadastrados realizem transferências monetárias internas entre si.
 
 ## Funcionalidades
 Nessa aplicação, o usuário é capaz de:
@@ -27,19 +28,11 @@ Nessa aplicação, o usuário é capaz de:
   
   * Visualizar saldo;
   
-    * Um usuário só poderá visualizar o saldo de sua própria conta;
+  * Realizar transferências para outros usuários cadastrados;
   
-  * Realizar transações para outros usuários cadastrados;
-   
-    * Um usuário só pode realizar transações pela sua própria conta;
-    
-    * Um usuário só poderá realizar transações caso tenha saldo o suficiente;
+  * Receber transferências de outros usuários cadastrados;
   
-  * Receber transações de outros usuários cadastrados;
-   
-    * Um usuário só pode receber transações de outros usuários;
-  
-  * Visualizar transações em que participou;
+  * Visualizar as transferências em que participou;
 
 ## Tecnologias Utilizadas
 
@@ -56,7 +49,6 @@ Nessa aplicação, o usuário é capaz de:
 
 ### Front-End
 * [React](https://reactjs.org/)
-  * [React Icons](https://react-icons.github.io/react-icons/)
   * [Styled Components](https://styled-components.com/)
   * [Axios](https://axios-http.com/ptbr/docs/intro)
 
@@ -69,10 +61,17 @@ git clone git@github.com:marllomartin/ngcash-transactions.git
 cd ngcash-transactions
 ```
 ### Inicializando o Docker
-Na pasta raíz do projeto:
+
+O banco de dados rodará na porta **5432**, o backend rodará na porta **3001** e o frontend rodará na porta **3000**.
+
+Certifique-se que nenhuma das portas utilizadas pelos contêiners do Docker esteja indisponível.
+
+#### Na pasta raíz do projeto:
+
 ```
 docker-compose up --build
 ```
+Após a ativação dos três contêineres (database, backend, frontend), a aplicação estará pronta para ser acessada.
 
 ## Documentação da API
 
@@ -89,7 +88,7 @@ Exemplo de Body:
   "password": "Secret12345"
 }
 ```
-| Parâmetro | Descrição | Tipo |
+| Nome | Descrição | Tipo |
 |:----------|:-------------------|:-------|
 | `username` |  O nome de usuário a ser cadastrado, deve ter pelo menos 3 caracteres. | String |
 | `password` |  A senha do usuário a ser cadastrado, deve ter pelo menos 8 caracteres, um número e uma letra maiúscula. | String |
@@ -118,7 +117,7 @@ Exemplo de Body:
   "password": "Secret54321"
 }
 ```
-| Parâmetro | Descrição | Tipo |
+| Nome | Descrição | Tipo |
 |:----------|:-------------------|:-------|
 | `username` |  O nome de usuário que irá fazer o login. | String |
 | `password` |  A senha do usuário que irá fazer o login. | String |
@@ -146,14 +145,14 @@ Exemplo de Body:
 ```
 {
   "debitedAccountId": "1",
-  "creditedAccountId": "2",
+  "creditedAccountUsername": "fulaninho",
   "value": 45.50
 }
 ```
-| Parâmetro | Descrição | Tipo |
+| Nome | Descrição | Tipo |
 |:----------|:-------------------|:-------|
-| `debitedAccountId` |  O id da conta do usuário que terá seu saldo debitado, deve pertencer a conta do usuário autenticado que está realizando a transação. | Number |## Sobre
-| `creditedAccountId` |  O id da conta do usuário que receberá a transação e terá seu saldo creditado, deve ser diferente do 'debitedAccountId'. | Number |
+| `debitedAccountId` |  O id da conta do usuário que realizará a transferência e terá seu saldo debitado, deve pertencer a conta do usuário autenticado que está realizando a transação. | Number |
+| `creditedAccountUsername` |  O nome do usuário que receberá a transferência e terá seu saldo creditado, deve ser diferente do usuário que está realizando a transação. | String |
 | `value` | O valor da transação. | Number |
 
 <details><summary>Exemplo de retorno</summary>
@@ -175,6 +174,10 @@ Essa requisição necessita que o usuário esteja autenticado, enviando um token
 Tipo de Requisição: **GET**
 
 PATH: **http://localhost:3001/balance/{accountId}**
+
+| Parâmetro | Descrição |
+|:----------|:-------------------|
+| `accountId` |  O id da conta do usuário a ter o saldo visualizado. |
 
 <details><summary>Exemplo de retorno</summary>
 
@@ -204,18 +207,44 @@ PATH: **http://localhost:3001/user/transactions**
 [
   {
     "id": 1,
-    "debitedAccountId": 1,
-    "creditedAccountId": 2,
+    "debitedAccountUsername": "fulano",
+    "creditedAccountUsername": "ciclano",
     "value": "10.50",
     "createdAt": "2022-11-18T16:10:25.766Z"
   },
   {
     "id": 2,
-    "debitedAccountId": 2,
-    "creditedAccountId": 1,
+    "debitedAccountId": "fulano",
+    "creditedAccountId": "beltrano",
     "value": "30.55",
+    "createdAt": "2022-11-18T16:10:45.036Z"
+  },
+    {
+    "id": 3,
+    "debitedAccountId": "beltrano",
+    "creditedAccountId": "fulano",
+    "value": "10.00",
     "createdAt": "2022-11-18T16:10:45.036Z"
   }
 ]
 ```
 </details>
+
+## Testes de Integração
+Para rodar os testes da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
+
+#### Instalando as dependências
+Na raíz do backend:
+```
+npm install
+```
+
+#### Rodando os testes
+
+Antes de executar os testes, certifique-se que o serviço do PostgreSQL está ativo digitando ```service postgresql status``` em seu terminal.
+```
+npm run test
+```
+
+
+
