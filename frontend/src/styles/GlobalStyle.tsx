@@ -12,9 +12,9 @@ export default createGlobalStyle`
     margin:0 auto;
   }
   body {
-    background: linear-gradient(-45deg, #D6D6D6, #EDEDED, #FFFFFF, #EDEDED, #D6D6D6);
+    background: linear-gradient(-45deg, #C9C9C9, #DFDFDF, #F0F0F0, #FFFF, #F0F0F0, #DFDFDF, #C9C9C9);
     background-size: 400% 400%;
-    animation: gradient 22s ease infinite;
+    animation: gradient 20s ease infinite;
     height: 100vh;
   }
 
