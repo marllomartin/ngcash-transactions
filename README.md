@@ -10,6 +10,7 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Rodando o projeto](#rodando-o-projeto-com-o-docker)
 - [Documentação da API](#documentação-da-api)
+- [Diagrama do Banco de Dados](#diagrama-do-banco-de-dados)
 - [Testes de Integração](#testes-de-integração)
 
 ## Sobre
@@ -239,6 +240,12 @@ PATH: **http://localhost:3001/user/transactions**
 ]
 ```
 </details>
+
+## Diagrama do Banco de Dados
+
+<p align="center" width="100%">
+    <img width="80%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/DIAGRAM.png">
+</p>
 
 ## Testes de Integração
 Para rodar os testes da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
