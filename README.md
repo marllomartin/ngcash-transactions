@@ -231,12 +231,8 @@ PATH: **http://localhost:3001/user/transactions**
 ```
 </details>
 
-## Cobertura de Testes
-Para rodar a cobertura dos teste da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
-
-### Testes de Integração
-
-Antes de executar os testes, certifique-se que o serviço do PostgreSQL está ativo digitando ```service postgresql status``` em seu terminal
+## Testes de Integração
+Para rodar os testes da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
 
 #### Instalando as dependências
 Na raíz do backend:
@@ -245,6 +241,8 @@ npm install
 ```
 
 #### Rodando os testes
+
+Antes de executar os testes, certifique-se que o serviço do PostgreSQL está ativo digitando ```service postgresql status``` em seu terminal.
 ```
 npm run test
 ```
