@@ -15,7 +15,7 @@ const UserLogin: React.FC = () => {
   const [usernameError, setUsernameError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
 
-  const [requiredFields, setRequiredFields] = useState<boolean>(false);
+  const [registerError, setRegisterError] = useState<string>("");
 
   const history = useNavigate();
 
@@ -37,13 +37,13 @@ const UserLogin: React.FC = () => {
     setPasswordShown(false);
     setIsRegistering(!isRegistering);
     if (!isRegistering) {
-      setUsernameError('Nome de usuário deve ter no mínimo 3 caracteres.');
+      setUsernameError('Nome de usuário deve ser único e ter no mínimo 3 caracteres.');
       setPasswordError('Senha deve conter uma letra maiúscula e ter no mínimo 8 caracteres.');
     }
     if (isRegistering) {
       setUsernameError('');
       setPasswordError('');
-      setRequiredFields(false);
+      setRegisterError('');
     }
   }
 
@@ -58,8 +58,13 @@ const UserLogin: React.FC = () => {
         })
         .catch(err => {
           console.log(err.response);
-          if (err.response.status === 400) {
-            setRequiredFields(true);
+          if (err.response.data.message === 'Password needs at least one uppercase letter') {
+            setRegisterError('Atente-se nas regras para a criação de senha.');
+          } else if (err.response.status === 400) {
+            setRegisterError('Todos os campos devem ser preenchidos.');
+          }
+          if (err.response.status === 409) {
+            setRegisterError('Nome de usuário já registrado.');
           }
         });
     }
@@ -79,9 +84,6 @@ const UserLogin: React.FC = () => {
         }
         );
     }
-
-    setUsername("");
-    setPassword("");
   }
 
   return (
@@ -91,7 +93,7 @@ const UserLogin: React.FC = () => {
         <Form onSubmit={handleSubmit}>
           <InputContainer>
             <InputGroup>
-              <label>{!requiredFields ? "Nome de usuário" : "*Nome de usuário:"}</label>
+              <label>Nome de usuário:</label>
               <input
                 id="username"
                 value={username}
@@ -103,7 +105,7 @@ const UserLogin: React.FC = () => {
               <span>{usernameError}</span>
             </InputGroup>
             <InputGroup>
-              <label>{!requiredFields ? "Senha" : "*Senha:"}</label>
+              <label>Senha:</label>
               <input
                 id="password"
                 value={password}
@@ -113,8 +115,8 @@ const UserLogin: React.FC = () => {
               />
               <SvgEyeOpen onClick={togglePassword}></SvgEyeOpen>
               <span>{passwordError}</span>
-              {requiredFields ? <br/> : ""}
-              {requiredFields ? <span>Campos marcados com asterisco são obrigatórios.</span> : ""}
+              {registerError ? <br /> : ""}
+              {registerError ? <span>{registerError}</span> : ""}
             </InputGroup>
 
           </InputContainer>
