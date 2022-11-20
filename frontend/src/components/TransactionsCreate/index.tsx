@@ -88,6 +88,7 @@ const TransactionsCreate: React.FC = () => {
                 decimalsLimit={2}
                 fixedDecimalLength={2}
                 value={value}
+                autoComplete="off"
                 required={true}
                 transformRawValue={(value) => String(value)}
                 onValueChange={(value) => setValue(value)}
