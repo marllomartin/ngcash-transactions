@@ -61,7 +61,6 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         })
         .catch(err => {
-          console.log(err.response);
           if (err.response.data.message === 'Password needs at least one uppercase letter') {
             setRegisterError('Atente-se nas regras para a criação de senha.');
           } else if (err.response.status === 400) {
