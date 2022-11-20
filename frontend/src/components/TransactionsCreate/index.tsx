@@ -47,15 +47,22 @@ const TransactionsCreate: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const newValue = value.replace(/,/g, '.'); 
+    console.log(newValue);
+    
+
     try {
-      await createTransaction(userData.token, userData.id, creditedUser, Number(value))
+      await createTransaction(
+        userData.token,
+        userData.id,
+        creditedUser,
+        Number(newValue))
     } catch (error) {
       console.log(error);
     }
     loadTransactions();
     loadBalance();
     setCreditedUser("");
-    setValue("");
   }
 
   return (
@@ -81,16 +88,12 @@ const TransactionsCreate: React.FC = () => {
               <CurrencyInput
                 id="value"
                 name="value"
-                placeholder="insira um valor"
                 prefix="R$"
-                decimalSeparator="."
+                placeholder="quantia a ser transferida"
+                defaultValue={0}
+                value={value}
                 disableGroupSeparators={true}
                 decimalsLimit={2}
-                fixedDecimalLength={2}
-                value={value}
-                autoComplete="off"
-                required={true}
-                transformRawValue={(value) => String(value)}
                 onValueChange={(value) => setValue(value)}
               />
             </InputGroup>
