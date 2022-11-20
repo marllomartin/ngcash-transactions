@@ -49,7 +49,6 @@ Nessa aplicação, o usuário é capaz de:
 
 ### Front-End
 * [React](https://reactjs.org/)
-  * [React Icons](https://react-icons.github.io/react-icons/)
   * [Styled Components](https://styled-components.com/)
   * [Axios](https://axios-http.com/ptbr/docs/intro)
 
