@@ -73,7 +73,7 @@ git clone git@github.com:marllomartin/ngcash-transactions.git
 
 cd ngcash-transactions
 ```
-### Inicializando o Docker
+### Inicializando o Docker:
 
 O banco de dados rodará na porta **5432**, o backend rodará na porta **3001** e o frontend rodará na porta **3000**.
 
@@ -267,17 +267,17 @@ Estrutura do `.env`:
 
 `JWT_SECRET`: Segredo utilizado na criptografia do JWT.
 
-#### Instalando as dependências
+### Instalando as dependências:
 Na raíz do backend:
 ```
 npm install
 ```
-#### Rodando o servidor do backend
+### Rodando o servidor do backend:
 ```
 npm start
 ```
 
-#### Rodando os testes
+### Rodando os testes:
 
 Antes de executar os testes, certifique-se que o serviço do PostgreSQL está ativo digitando ```service postgresql status``` em seu terminal.
 ```
