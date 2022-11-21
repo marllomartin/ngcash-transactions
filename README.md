@@ -11,9 +11,12 @@
 - [Rodando o projeto](#rodando-o-projeto-com-o-docker)
 - [Documentação da API](#documentação-da-api)
 - [Testes de Integração](#testes-de-integração)
+- [Diagrama do Banco de Dados](#diagrama-do-banco-de-dados)
 
 ## Sobre
 Projeto de uma aplicação web fullstack que permite que usuários cadastrados realizem transferências monetárias internas entre si.
+
+O backend da aplicação foi desenvolvido utilizando técnicas de TDD (Test Driven Development), enquanto no frontend foram aplicados os conceitos de web design mobile-first.
 
 ## Funcionalidades
 Nessa aplicação, o usuário é capaz de:
@@ -257,4 +260,9 @@ npm run test
 ```
 
 
+## Diagrama do Banco de Dados
+
+<p align="center" width="100%">
+    <img width="80%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/DIAGRAM.png">
+</p>
 
