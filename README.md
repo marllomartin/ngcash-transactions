@@ -84,7 +84,7 @@ Certifique-se que nenhuma das portas utilizadas pelos contêiners do Docker este
 ```
 docker-compose up --build
 ```
-Após a ativação dos três contêineres (database, backend, frontend), a aplicação estará pronta para ser acessada.
+Aguarde a ativação dos três contêineres (database, backend, frontend), após isso, a aplicação estará pronta para ser acessada.
 
 ## Documentação da API
 
