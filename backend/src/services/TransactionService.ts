@@ -49,7 +49,7 @@ class TransactionService {
       .findAll({ where: { [Op.or]: [{ debitedAccountId: id }, { creditedAccountId: id }] } });
 
     const result = userTransactions.map(
-      ({ id, debitedAccountId, creditedAccountId, value, createdAt }) => (
+      ({ debitedAccountId, creditedAccountId, value, createdAt }) => (
         {
           id,
           debitedAccountUsername: users
