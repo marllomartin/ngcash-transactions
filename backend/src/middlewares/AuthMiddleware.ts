@@ -34,6 +34,34 @@ class AuthMiddleware {
       return res.status(StatusCodes.UNAUTHORIZED).json({ message: getErrorMessage(Error) });
     }
   }
+
+  static async authTransaction(req: Request, res: Response, next: NextFunction) {
+    const { authorization: token } = req.headers;
+    const { debitedAccountId } = req.body;
+
+    if (!token) return res.status(StatusCodes.FORBIDDEN).json({ message: 'A token is required' });
+
+    try {
+      const secret = String(JWT_SECRET);
+      const verified = verify(token, secret);
+
+      if (!verified) return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid token' });
+
+      const decoded = decode(token, secret as never) as IJwtPayload;
+      const findUser = await UserModel
+        .findOne({ where: { username: decoded.payload as IJwtPayload } });
+
+      if (findUser?.id !== debitedAccountId) {
+        return res.status(StatusCodes.FORBIDDEN).json({ message: 'Invalid transaction' });
+      }
+
+      req.userId = findUser?.id;
+
+      next();
+    } catch (Error) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: getErrorMessage(Error) });
+    }
+  }
 }
 
 export default AuthMiddleware;
