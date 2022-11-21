@@ -244,12 +244,37 @@ PATH: **http://localhost:3001/user/transactions**
 </details>
 
 ## Testes de Integração
+
+<p align="center" width="100%">
+    <img width="80%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/TEST.png">
+</p>
+
 Para rodar os testes da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
+
+Estrutura do `.env`:
+
+`PG_USER`: Nome de usuário do Postgres.
+
+`PG_PASSWORD`: Senha do Postgres.
+
+`PG_DATABASE`: Nome do banco de dados Postgres, nesta aplicação chama-se "ngcash-transactions".
+
+`PG_PORT`: Porta utilizada pelo Postgres, a porta padrão é a 5432.
+
+`HOSTNAME`: Host do servidor, o host padrão é o localhost.
+
+`PORT`: Porta utilizada pelo servidor, a porta padrão é a 3001.
+
+`JWT_SECRET`: Segredo utilizado na criptografia do JWT.
 
 #### Instalando as dependências
 Na raíz do backend:
 ```
 npm install
+```
+#### Rodando o servidor do backend
+```
+npm start
 ```
 
 #### Rodando os testes
