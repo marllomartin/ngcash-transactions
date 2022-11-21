@@ -13,8 +13,12 @@ const { expect } = chai;
 
 describe('[POST] Create Transaction', () => {
   let token: string;
-  const firstTestId = 11111;
-  const secondTestId = 22222;
+  const first_AccountId = 11111;
+  const first_AccountUsername = 'testing';
+  const first_AccountPassword = 'Testing12345';
+
+  const second_AccountId = 22222;
+  const second_AccountUsername = 'testing_twin';
 
   before(async () => {
     shelljs.exec(DATABASE_RESEED, { silent: true });
@@ -22,8 +26,8 @@ describe('[POST] Create Transaction', () => {
     await request(app)
       .post('/login')
       .send({
-        username: 'testing',
-        password: 'Testing12345',
+        username: first_AccountUsername,
+        password: first_AccountPassword,
       })
       .expect(200)
       .then((res) => {
@@ -32,57 +36,64 @@ describe('[POST] Create Transaction', () => {
   });
 
   it('Transaction info is returned with a correct status when create transaction request is successful', async () => {
+    const object = {
+      "debitedAccountId": first_AccountId,
+      "creditedAccountUsername": second_AccountUsername,
+      "value": 5.55
+    }
     const res = await chai
       .request(app).post('/transaction')
       .set('authorization', token)
-      .send({
-        "debitedAccountId": firstTestId,
-        "creditedAccountId": secondTestId,
-        "value": 5.55
-      });
+      .send(object);
 
     expect(res.body).to.be.an('Object');
-    expect(res.body).to.have.keys('id', 'debitedAccountId', 'creditedAccountId', 'value', 'createdAt');
     expect(res.status).to.be.equal(200);
   });
 
   it('An error is returned when the transaction is sending funds to the same account', async () => {
+    const object = {
+      "debitedAccountId": first_AccountId,
+      "creditedAccountUsername": first_AccountUsername,
+      "value": 5.55
+    }
+
     const res = await chai
       .request(app).post('/transaction')
       .set('authorization', token)
-      .send({
-        "debitedAccountId": firstTestId,
-        "creditedAccountId": firstTestId,
-        "value": 5.55
-      });
+      .send(object);
 
-    expect(res.body.message).to.be.equal('Invalid transaction: cannot send funds to same account');
-    expect(res.status).to.be.equal(403);
+    expect(res.body.message).to.be.equal('Cannot send funds to yourself.');
+    expect(res.status).to.be.equal(404);
   });
 
   it('An error is returned when the transaction is forbidden', async () => {
+    const object = {
+      "debitedAccountId": second_AccountId,
+      "creditedAccountUsername": first_AccountUsername,
+      "value": 5.55
+    }
+
     const res = await chai
       .request(app).post('/transaction')
       .set('authorization', token)
-      .send({
-        "debitedAccountId": secondTestId,
-        "creditedAccountId": firstTestId,
-        "value": 5.55
-      });
+      .send(object);
 
     expect(res.status).to.be.equal(403);
     expect(res.body.message).to.be.equal('Invalid transaction');
   });
 
   it('An error is returned when there is not enough funds for the transaction', async () => {
+    const object = {
+      "debitedAccountId": first_AccountId,
+      "creditedAccountUsername": second_AccountUsername,
+      "value": 5555.55
+    }
+
     const res = await chai
       .request(app).post('/transaction')
       .set('authorization', token)
-      .send({
-        'debitedAccountId': firstTestId,
-        'creditedAccountId': secondTestId,
-        'value': 5555.55
-      });
+      .send(object);
+
 
     expect(res.status).to.be.equal(404);
     expect(res.body.message).to.be.equal('Not enough funds');
