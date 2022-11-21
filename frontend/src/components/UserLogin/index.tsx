@@ -61,8 +61,6 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         })
         .catch(err => {
-          console.log(err);
-
           if (err.response.data.message === 'Password needs at least one uppercase letter') {
             setPasswordError('Senha deve conter uma letra maiúscula.');
           } else if (err.response.data.message === 'Password must be at least eight characters long') {
@@ -83,7 +81,12 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         })
         .catch(err => {
-          if (err.response.status === 401 ||
+          if (
+            (password.length > 0 && password.length < 8) ||
+            (username.length > 0 && username.length < 3)
+          ) {
+            setPasswordError('Usuário ou senha incorreto.');
+          } else if (err.response.status === 401 ||
             err.response.data.message === 'Password needs at least one uppercase letter') {
             setPasswordError('Usuário ou senha incorreto.');
           } else if (err.response.status === 400) {
