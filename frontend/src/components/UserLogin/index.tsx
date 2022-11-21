@@ -81,16 +81,17 @@ const UserLogin: React.FC = () => {
           history('/transactions');
         })
         .catch(err => {
-          if (
-            (password.length > 0 && password.length < 8) ||
-            (username.length > 0 && username.length < 3)
-          ) {
-            setPasswordError('Usuário ou senha incorreto.');
-          } else if (err.response.status === 401 ||
+          console.log(err);
+
+          if (err.response.status === 401 ||
             err.response.data.message === 'Password needs at least one uppercase letter') {
             setPasswordError('Usuário ou senha incorreto.');
-          } else if (err.response.status === 400) {
+          }
+          if (!username || !password) {
             setPasswordError('Todos os campos devem ser preenchidos.');
+          }
+          if (username && password && err.response.status === 400) {
+            setPasswordError('Usuário ou senha incorreto.');
           }
         }
         );
