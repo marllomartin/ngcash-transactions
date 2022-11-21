@@ -59,6 +59,7 @@ Nessa aplicação, o usuário é capaz de:
   * [MD5 Hash](https://www.npmjs.com/package/md5)
   * [CORS](https://www.npmjs.com/package/cors)
   * [HTTP-Status-Codes](https://www.npmjs.com/package/http-status-codes)
+  * [Chai](https://www.chaijs.com/)
 
 ### Front-End
 * [React](https://reactjs.org/)
@@ -249,7 +250,7 @@ PATH: **http://localhost:3001/user/transactions**
     <img width="80%" src="https://github.com/marllomartin/ngcash-transactions/blob/master/frontend/public/images/TEST.png">
 </p>
 
-Para rodar os testes da API é necessário que as variáveis de ambiente estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
+Para rodar os testes da API é necessário que o serviço do PostgreSQL esteja instalado na sua máquina e as variáveis de ambiente do backend estejam configuradas corretamente, renomeie o arquivo `.env.example` localizado na raiz do backend para apenas `.env` e altere os valores indicados de acordo com suas próprias configurações.
 
 Estrutura do `.env`:
 
@@ -283,7 +284,6 @@ Antes de executar os testes, certifique-se que o serviço do PostgreSQL está at
 ```
 npm run test
 ```
-
 
 ## Diagrama do Banco de Dados
 
