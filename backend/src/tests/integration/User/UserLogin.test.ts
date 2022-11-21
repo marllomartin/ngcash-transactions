@@ -25,7 +25,7 @@ describe('[POST] Login', () => {
 
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.an('Object');
-    expect(res.body).to.have.key('token');
+    expect(Object.keys(res.body)).to.include.members(['token']);
   });
 
   it('Correct status is returned when given wrong login credentials', async () => {
