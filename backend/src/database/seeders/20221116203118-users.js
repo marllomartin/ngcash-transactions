@@ -10,7 +10,7 @@ module.exports = {
       },
       {
         id: 22222,
-        username: 'testing twin',
+        username: 'testing_twin',
         password: '280faf6d7b0621c0b5ac57200308461e',
         // senha: Secret_user
         accountId: 22222
