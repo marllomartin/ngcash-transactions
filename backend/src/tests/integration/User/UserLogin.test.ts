@@ -50,7 +50,7 @@ describe('[POST] Login', () => {
     expect(res.body.message).to.be.equal('Incorrect username or password');
   });
 
-  it('Correct is returned when a login field is missing', async () => {
+  it('Correct is status returned when a login field is missing', async () => {
     const res = await chai
       .request(app).post('/login')
       .send({
