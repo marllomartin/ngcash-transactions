@@ -48,9 +48,9 @@ Nessa aplicação, o usuário é capaz de:
 </p>
 
 ## Tecnologias Utilizadas
-
-### Back-End
+* [Docker](https://www.docker.com/)
 * [TypeScript](https://www.typescriptlang.org/)
+#### Back-End
 * [PostgreSQL](https://www.postgresql.org/)
 * [Sequelize ORM](https://sequelize.org/)
 * [Node.js](https://nodejs.org/en/)
@@ -61,7 +61,7 @@ Nessa aplicação, o usuário é capaz de:
   * [HTTP-Status-Codes](https://www.npmjs.com/package/http-status-codes)
   * [Chai](https://www.chaijs.com/)
 
-### Front-End
+#### Front-End
 * [React](https://reactjs.org/)
   * [Styled Components](https://styled-components.com/)
   * [Axios](https://axios-http.com/ptbr/docs/intro)
