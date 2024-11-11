@@ -14,9 +14,9 @@
 - [Diagrama do Banco de Dados](#diagrama-do-banco-de-dados)
 
 ## Sobre
-Projeto de uma aplicação web fullstack que permite que usuários cadastrados realizem transferências monetárias internas entre si.
+Projeto de uma aplicação web fullstack que permite que usuários cadastrados realizem transferências monetárias internas entre si. Feito para um challenge acadêmico proposto pelo banco [NG.CASH](https://www.ng.cash/).
 
-O backend da aplicação foi desenvolvido utilizando técnicas de TDD (Test Driven Development), enquanto no frontend foram aplicados os conceitos de web design mobile-first.
+O backend da aplicação foi desenvolvido utilizando técnicas de TDD (Test Driven Development), no frontend foram aplicados os conceitos de web design mobile-first.
 
 ## Funcionalidades
 Nessa aplicação, o usuário é capaz de:
